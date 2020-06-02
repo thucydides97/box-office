@@ -12,3 +12,8 @@ instance/
 
 # Databases
 *.sqlite
+*.db
+
+# Editor
+.vscode
+.DS_Store

@@ -22,16 +22,16 @@ class DevelopmentConfig(Config):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-        'mysql://test:password@localhost/boxoffice'
+        'sqlite:///' + os.path.join(basedir, 'app.db')
 
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-        'mysql://username:password@localhost/boxoffice'
+        'sqlite:///' + os.path.join(basedir, 'app.db')
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'mysql://username:password@localhost/boxoffice'
+        'sqlite:///' + os.path.join(basedir, 'app.db')
 
 config = {
     'development': DevelopmentConfig,
