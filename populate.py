@@ -11,6 +11,9 @@ app.app_context().push()
 def scrap():
     Event.query.delete()
     Showing.query.delete()
+    Ticket.query.delete()
+    TicketType.query.delete()
+    Booking.query.delete()
     db.session.commit()
 
 

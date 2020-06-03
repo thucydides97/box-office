@@ -6,6 +6,28 @@
 <div class="page-header">
     <h1>Booking Confirmation</h1>
 </div>
+
 <div class="body">
+    <h4>Details</h4>
+    <p>Date Created: {{ booking['date_created'] }}</p>
+    <p>Booking ref: {{ booking['booking_ref'] }}</p>
+    <br>
+    <p><strong>Tickets:</strong></p>
+    <table style='width: 40%;'>
+        <thead>
+            <tr>
+            <th>Event</th>
+            <th>Showing</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ticket in booking.tickets %}
+            <tr>
+            <td>{{ ticket.showing.event.name }}</td>
+            <td>{{ ticket.showing.date }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

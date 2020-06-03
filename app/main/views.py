@@ -7,6 +7,9 @@ from ..email import send_email
 from .. import db
 from ..models import User, Event, Showing, Ticket, Booking
 
+from pprint import pprint 
+
+
 @main.before_app_request
 def before_request():
     if 'tickets' in session:
@@ -62,7 +65,8 @@ def booking():
 @main.route('/booking/confirmation/')
 def confirmation():
     session['tickets'] = []
-    return render_template('confirmation.html')
+    booking = Booking.query.filter_by(user_id=current_user.id).order_by(Booking.date_created.desc()).first()
+    return render_template('confirmation.html', booking=booking)
 
 @main.route('/booking/edit/<int:id>')
 def edit_booking(id):
@@ -74,11 +78,13 @@ def edit_booking(id):
 def showing(id):
     showing = Showing.query.get_or_404(id)
     booked_tickets = showing.tickets.filter(Ticket.booking_id!=None).all()
+    # TODO only show tickets booked by current user
     bookings = Booking.query.join(Ticket, Ticket.booking_id == Booking.id).filter(Ticket.showing_id==id)
     ticket_types = showing.ticket_types.all()
     tickets = []
     for ticket_type in ticket_types:
         tickets.append({'ticket_type':ticket_type.id, 'ticket_type_label':ticket_type.name, 'num_tickets':0})
+
     form = AddTicketsForm(tickets=tickets, showing_id=showing.id)
     if form.validate_on_submit():
         num_tickets = 0;
@@ -86,6 +92,9 @@ def showing(id):
         for tickets in form.tickets.data:
             tickets_list.extend([tickets['ticket_type']] * tickets['num_tickets'])
         tickets_available = showing.tickets_available()
+        if not tickets_list:
+            flash("No tickets selected")
+            return render_template('showing.html', showing=showing, tickets=booked_tickets, bookings=bookings, form=form)
         if len(tickets_list) <= tickets_available:
             expiry = datetime.utcnow() + timedelta(minutes=15)
             tickets = []

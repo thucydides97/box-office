@@ -130,6 +130,13 @@ class Ticket(db.Model):
     def __repr__(self):
         return '<Ticket %r>' % self.id
 
+    def _to_dict(self):
+        d = dict((name, getattr(self, name)) for name in dir(self) if not name.startswith('_')) 
+        del d['metadata']
+        del d['query']
+        del d['query_class']
+        return d
+
 class TicketType(db.Model):
     __tablename__ = 'ticket_types'
     id = db.Column(db.Integer, primary_key=True)
@@ -144,7 +151,7 @@ class Booking(db.Model):
     email = db.Column(db.String(64), index=True)
     name = db.Column(db.String(64))
     date_created = db.Column(db.DateTime(), default=datetime.utcnow())
-    booking_ref = db.Column(db.String(36), default=uuid.uuid4())
+    booking_ref = db.Column(db.String(36), default=str(uuid.uuid4()))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     tickets = db.relationship('Ticket', backref='booking', lazy='dynamic')
 
@@ -157,3 +164,11 @@ class Booking(db.Model):
 
     def __repr__(self):
         return '<Booking %r>' % self.id
+
+    def _to_dict(self):
+        d = dict((name, getattr(self, name)) for name in dir(self) if not name.startswith('_')) 
+        del d['metadata']
+        del d['query']
+        del d['query_class']
+        d['tickets'] = [a._to_dict() for a in d['tickets'].all()]
+        return d
