@@ -1,7 +1,7 @@
 import os
 
 from app import create_app, db
-from app.models import User, Event, Showing, Ticket, Booking
+from app.models import User, Event, Showing, Ticket, Booking, TicketType
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
@@ -11,7 +11,7 @@ manager = Manager(app)
 migrate = Migrate(app, db)
 
 def make_shell_context():
-    return dict(app=app, db=db, User=User, Event=Event, Showing=Showing, Ticket=Ticket, Booking=Booking)
+    return dict(app=app, db=db, User=User, Event=Event, Showing=Showing, Ticket=Ticket, Booking=Booking, TicketType=TicketType)
 
 @manager.command
 def test():

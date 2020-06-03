@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Box Office{% endblock %}
+{% block title %}Globe Drive In{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
@@ -38,7 +38,7 @@
           <td>{{ ticket.id }} - {{ ticket.booking.name }}</td>
           <td>{{ ticket.booking.email }}</td>
           <td>{{ ticket.ticket_type.name }}</td>
-          <td>{{ '£%0.2f'|format(ticket.ticket_type.price) }}</td>
+          <td>{{ '$%0.2f'|format(ticket.ticket_type.price) }}</td>
         </tr>
       {% endif %}
       {% endfor %}

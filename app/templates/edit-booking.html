@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Box Office{% endblock %}
+{% block title %}Globe Drive In{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
@@ -48,7 +48,7 @@
           <td>{{ ticket.showing.event.name }} on <em>{{ moment(ticket.showing.date).format('MMMM Do YYYY, h:mm:ss a') }}</em></td>
           <td>{{ ticket.id }}</td>
           <td>{{ ticket.ticket_type.name }}</td>
-          <td>{{ '£%0.2f'|format(ticket.ticket_type.price) }}</td>
+          <td>{{ '$%0.2f'|format(ticket.ticket_type.price) }}</td>
           <td><span class="label label-{% if ticket.paid %}success{% else %}danger{% endif %}">{{ 'Yes' if ticket.paid else 'No' }}</span></td>
           <td>
             <div class="btn-group" role="group">

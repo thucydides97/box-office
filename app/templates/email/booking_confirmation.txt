@@ -11,6 +11,6 @@ Booking ref: {{ booking.booking_ref }}
 ====================================
 
 Sincerely,
-Box Office
+Globe Drive In
 
 Note: replies to this email address are not monitored.

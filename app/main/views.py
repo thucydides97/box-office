@@ -75,7 +75,7 @@ def showing(id):
     showing = Showing.query.get_or_404(id)
     booked_tickets = showing.tickets.filter(Ticket.booking_id!=None).all()
     bookings = Booking.query.join(Ticket, Ticket.booking_id == Booking.id).filter(Ticket.showing_id==id)
-    ticket_types = showing.ticket_types
+    ticket_types = showing.ticket_types.all()
     tickets = []
     for ticket_type in ticket_types:
         tickets.append({'ticket_type':ticket_type.id, 'ticket_type_label':ticket_type.name, 'num_tickets':0})

@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 
-{% block title %}Box Office{% endblock %}
+{% block title %}Globe Drive In{% endblock %}
 
 {% block head %}
 {{ super() }}
@@ -18,11 +18,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Box Office</a>
+            <a class="navbar-brand" href="/">Globe Drive In</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/"/>Home</a></li>
+            <li><a href="/">Home</a></li>
             {% if current_user.is_authenticated %}
             <li><a href="{{ url_for('main.my_bookings') }}" class="dropdown-toggle">My Bookings</a></li>
             {% endif %}
