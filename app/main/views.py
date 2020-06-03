@@ -37,6 +37,10 @@ def event(id):
 @main.route('/booking', methods=['GET', 'POST'])
 def booking():
     form = BookingForm()
+    if 'tickets' in session:
+        if not len(session['tickets']):
+            flash('Cart is currently empty')
+            return redirect(url_for('.index'))
     if 'tickets' not in session:
         flash('You have selected no tickets.')
         return redirect(url_for('.index'))
