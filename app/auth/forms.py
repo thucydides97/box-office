@@ -19,8 +19,6 @@ class RegisterForm(FlaskForm):
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Email already registered.')
-        if field.data.split('@')[1] != 'samuelward.co.uk':
-            raise ValidationError('Must be a @samuelward.co.uk email address.')
 
 class ChangePasswordForm(FlaskForm):
     old_password = PasswordField('Old password', validators=[Required()])

@@ -1,13 +1,16 @@
 import os
 
+from dotenv import load_dotenv
 basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
+
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'thecuckoorideswiththewolves'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
-    FLASKY_MAIL_SENDER = 'Box Office Admin <tomtompato@gmail.com>'
+    FLASKY_MAIL_SENDER = os.environ.get('FLASKY_MAIL_SENDER')
+    FLASKY_MAIL_SUBJECT_PREFIX = '[Globe Drive In]'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
 
     @staticmethod
@@ -15,7 +18,7 @@ class Config:
         pass
 
 class DevelopmentConfig(Config):
-    DEBUG = False
+    DEBUG = os.environ.get('FLASK_DEBUG')
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
